@@ -1,0 +1,657 @@
+/* src/app/hyper-bomber/hyper-bomber.module.css */
+
+.container {
+  min-height: 100vh;
+  /* ネプリーグ風のホワイト＆近未来的メタリックスタジオ背景 */
+  background: radial-gradient(circle at 50% 30%, #202438 0%, #0d0f1a 55%, #05060a 100%);
+  color: #ffffff;
+  font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* 爆発振動 */
+.shaking {
+  animation: studioShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both infinite;
+}
+
+@keyframes studioShake {
+  10%, 90% { transform: translate3d(-6px, 0, 0) scale(1.02); }
+  20%, 80% { transform: translate3d(8px, 4px, 0) scale(0.98); }
+  30%, 50%, 70% { transform: translate3d(-10px, -6px, 0) scale(1.03); }
+  40%, 60% { transform: translate3d(10px, 6px, 0) scale(0.97); }
+}
+
+/* 爆発オーバーレイ */
+.explosionOverlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.98) 0%, rgba(255, 80, 0, 0.95) 30%, rgba(80, 0, 0, 0.98) 80%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: explodeFlash 2.5s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes explodeFlash {
+  0% { opacity: 0; transform: scale(0.4); }
+  8% { opacity: 1; transform: scale(1.15); filter: brightness(2.5); }
+  25% { filter: brightness(1.3); }
+  100% { opacity: 0.95; transform: scale(1); }
+}
+
+.explodedText {
+  font-size: 5rem;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 0 30px #ff0000, 0 0 60px #ff5500, 0 0 100px #ff0000;
+  letter-spacing: 6px;
+  animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 完全制覇オーバーレイ */
+.clearOverlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.5) 0%, rgba(10, 10, 25, 0.9) 70%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.clearText {
+  font-size: 4.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffffff 0%, #ffd700 50%, #ff8800 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 35px rgba(255, 215, 0, 0.9));
+  letter-spacing: 4px;
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.2); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* スタジオ上部・番組風テロップバー */
+.tvHeader {
+  width: 100%;
+  max-width: 1280px;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 20;
+}
+
+.telopLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.telopBadge {
+  background: linear-gradient(90deg, #ffcc00, #ff8800);
+  color: #000;
+  font-weight: 900;
+  font-size: 0.95rem;
+  padding: 3px 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  display: inline-block;
+  width: fit-content;
+  border: 1px solid #ffffff;
+}
+
+.telopSub {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #ff3344;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.9), 1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+}
+
+.telopRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.targetBadge {
+  background: #ff0033;
+  color: #fff;
+  font-weight: 900;
+  font-size: 1.1rem;
+  padding: 6px 16px;
+  border-radius: 6px;
+  border: 2px solid #ffd700;
+  box-shadow: 0 0 15px rgba(255, 0, 51, 0.6);
+  letter-spacing: 1px;
+}
+
+.headerControls {
+  display: flex;
+  gap: 8px;
+}
+
+.controlBtn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.controlBtn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* スタジオ全体ステージ */
+.studioStage {
+  width: 100%;
+  max-width: 1280px;
+  min-height: calc(100vh - 120px);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px 20px;
+}
+
+/* スタジオ背景の左右の白いメカ壁 */
+.studioStage::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 85%;
+  background: linear-gradient(90deg, #d2d6e2 0%, #858b9c 60%, transparent 100%);
+  clip-path: polygon(0 0, 70% 0, 100% 100%, 0 100%);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.studioStage::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 85%;
+  background: linear-gradient(-90deg, #d2d6e2 0%, #858b9c 60%, transparent 100%);
+  clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* 問題表示ボックス（ネプリーグ風） */
+.questionBoard {
+  width: 95%;
+  max-width: 1000px;
+  background: linear-gradient(180deg, #1b1e2e 0%, #0d101d 100%);
+  border: 3px solid #ffcc00;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(255, 204, 0, 0.4), inset 0 0 15px rgba(255, 204, 0, 0.2);
+  padding: 16px 24px;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  margin-bottom: 10px;
+}
+
+.questionTitle {
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 2px 4px #000;
+  margin: 4px 0;
+}
+
+.questionSubHint {
+  font-size: 0.95rem;
+  color: #ffd700;
+  font-weight: 700;
+}
+
+/* 5本のシリンダー＋プレイヤー席エリア */
+.cylindersContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 18px;
+  width: 100%;
+  margin: 10px 0 0;
+  position: relative;
+}
+
+@media (max-width: 900px) {
+  .cylindersContainer {
+    gap: 8px;
+  }
+}
+
+/* 各シリンダーユニット（シリンダー＋点火ヘッド＋下の解答席） */
+.cylinderUnit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 180px;
+  position: relative;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.cylinderUnitInactive {
+  opacity: 0.75;
+  filter: brightness(0.75);
+}
+
+.cylinderUnitActive {
+  opacity: 1;
+  filter: brightness(1.2);
+  transform: scale(1.05);
+  z-index: 15;
+}
+
+/* 解答中サイン（シリンダー頭上） */
+.answeringIndicator {
+  position: absolute;
+  top: -38px;
+  background: #ff0033;
+  color: #fff;
+  font-weight: 900;
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 2px solid #ffd700;
+  box-shadow: 0 0 15px #ff0033;
+  animation: answerBlink 0.6s infinite alternate;
+  white-space: nowrap;
+  letter-spacing: 1px;
+}
+
+@keyframes answerBlink {
+  0% { transform: scale(0.95); box-shadow: 0 0 8px #ff0033; }
+  100% { transform: scale(1.08); box-shadow: 0 0 20px #ffff00; }
+}
+
+/* 上部メカニカル点火ヘッド */
+.cylinderHead {
+  width: 80%;
+  height: 38px;
+  background: linear-gradient(180deg, #666 0%, #333 40%, #1a1a1a 100%);
+  border-radius: 8px 8px 0 0;
+  border: 2px solid #888;
+  border-bottom: none;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4);
+}
+
+.cylinderHeadBolt {
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 8px;
+  background: #ffaa00;
+  border-radius: 2px;
+  box-shadow: 0 0 6px #ffaa00;
+}
+
+/* シリンダー本体ガラスチューブ */
+.glassTube {
+  width: 80%;
+  height: 240px;
+  background: rgba(15, 20, 35, 0.6);
+  border-left: 4px solid rgba(255, 255, 255, 0.4);
+  border-right: 4px solid rgba(255, 255, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: flex-end;
+}
+
+/* シリンダーの光反射ライン（ガラス質感） */
+.glassTube::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 12%;
+  width: 12%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  pointer-events: none;
+}
+
+/* 内部の液体・エネルギー液面 */
+.liquidLevel {
+  width: 100%;
+  position: relative;
+  transition: height 0.3s ease-out;
+  border-top: 3px solid #ffffff;
+  box-shadow: 0 0 15px currentColor;
+}
+
+/* 液面の火花・沸騰 */
+.liquidSurfaceGlow {
+  position: absolute;
+  top: -8px;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background: #ffffff;
+  filter: blur(4px);
+  animation: surfaceFlicker 0.2s infinite alternate;
+}
+
+@keyframes surfaceFlicker {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* 各シリンダー色（青、緑、黄、橙、赤） */
+.colorBlue {
+  color: #00aaff;
+  background: linear-gradient(180deg, #00d4ff 0%, #0066cc 60%, #002266 100%);
+}
+
+.colorGreen {
+  color: #00ff66;
+  background: linear-gradient(180deg, #00ff88 0%, #00aa33 60%, #003311 100%);
+}
+
+.colorYellow {
+  color: #ffdd00;
+  background: linear-gradient(180deg, #ffee33 0%, #cc9900 60%, #443300 100%);
+}
+
+.colorOrange {
+  color: #ff8800;
+  background: linear-gradient(180deg, #ffaa33 0%, #dd5500 60%, #441500 100%);
+}
+
+.colorRed {
+  color: #ff2255;
+  background: linear-gradient(180deg, #ff4477 0%, #cc0033 60%, #440011 100%);
+}
+
+/* 下部の解答席デスク（ネプリーグ公式の黄色スラット風デスク） */
+.deskPodium {
+  width: 100%;
+  background: linear-gradient(180deg, #e69500 0%, #cc7700 40%, #884400 100%);
+  border: 2px solid #ffe066;
+  border-radius: 6px;
+  padding: 8px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  position: relative;
+  margin-top: -4px;
+  z-index: 10;
+}
+
+/* 解答席の黄色の横スラット（ルーバー）模様 */
+.deskSlats {
+  width: 90%;
+  height: 18px;
+  background: repeating-linear-gradient(
+    180deg,
+    #ffd24d 0px,
+    #ffd24d 3px,
+    #804d00 3px,
+    #804d00 6px
+  );
+  border-radius: 3px;
+  margin-bottom: 6px;
+  border: 1px solid #ffe680;
+}
+
+.deskMemberName {
+  font-size: 1.05rem;
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 0 2px 4px #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 95%;
+}
+
+.deskScoreTag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #ffe680;
+  margin-top: 2px;
+}
+
+/* 画面右下のネプリーグロゴ */
+.nepLogoArea {
+  position: absolute;
+  bottom: 12px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+
+.nepLogoText {
+  font-size: 1.8rem;
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -1px;
+  background: linear-gradient(180deg, #fff 0%, #d42b2b 40%, #700606 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.9));
+}
+
+/* 中央タイマーバー */
+.centerTimerArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin: 8px 0;
+}
+
+.officialTimer {
+  background: #000;
+  border: 3px solid #ff3300;
+  border-radius: 8px;
+  padding: 4px 24px;
+  box-shadow: 0 0 15px rgba(255, 51, 0, 0.6), inset 0 0 10px rgba(255, 51, 0, 0.4);
+  text-align: center;
+}
+
+.officialTimerLabel {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: #ff6666;
+  letter-spacing: 2px;
+}
+
+.officialTimerNumber {
+  font-size: 3.2rem;
+  font-weight: 900;
+  font-family: 'Courier New', Courier, monospace;
+  color: #ff2200;
+  text-shadow: 0 0 12px #ff0000;
+  line-height: 1;
+}
+
+.officialTimerCritical {
+  color: #ffff00;
+  text-shadow: 0 0 20px #ff0000;
+  animation: timerWarning 0.3s infinite alternate;
+}
+
+@keyframes timerWarning {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.06); }
+}
+
+/* 10個の正解ランプ・インジケーター（画面上部） */
+.clearLampsRow {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 6px 0;
+}
+
+.clearLamp {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #444;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 900;
+  color: #666;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.clearLampOn {
+  background: radial-gradient(circle, #00ff66 20%, #00882b 80%);
+  border-color: #ffffff;
+  color: #ffffff;
+  box-shadow: 0 0 12px #00ff66;
+  transform: scale(1.15);
+}
+
+/* 音声認識＆入力操作パネル（下部） */
+.liveControlPanel {
+  width: 95%;
+  max-width: 900px;
+  background: rgba(15, 18, 30, 0.85);
+  border: 1px solid #3d4466;
+  border-radius: 12px;
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  backdrop-filter: blur(6px);
+  z-index: 20;
+}
+
+.liveTranscriptRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #090b14;
+  border: 1px solid #232840;
+  border-radius: 8px;
+  padding: 8px 14px;
+}
+
+.liveTranscriptText {
+  color: #00ffcc;
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-shadow: 0 0 8px rgba(0, 255, 204, 0.4);
+}
+
+.passButton {
+  background: #441111;
+  border: 1px solid #ff4444;
+  color: #ff9999;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.passButton:hover {
+  background: #771111;
+  color: #fff;
+}
+
+.inputRow {
+  display: flex;
+  gap: 8px;
+}
+
+.keyboardInput {
+  flex: 1;
+  padding: 8px 14px;
+  background: #090b14;
+  border: 1px solid #333d5e;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.keyboardSubmit {
+  padding: 8px 20px;
+  background: linear-gradient(90deg, #ff5500, #ffaa00);
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+/* メンバー登録モーダル / 設定画面 */
+.memberSetupBox {
+  background: #151829;
+  border: 2px solid #3a4266;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.memberInputGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .memberInputGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.memberSlotInput {
+  background: #0d0f1c;
+  border: 1px solid #333b5c;
+  border-radius: 6px;
+  padding: 8px 10px;
+  color: #fff;
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: bold;
+}

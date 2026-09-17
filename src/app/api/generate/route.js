@@ -167,12 +167,21 @@ export async function POST(request) {
     // 1. forceGemini でない場合、かつ customTheme がない場合は、ストックから即座にランダム出題（待ち時間0秒！）
     if (!forceGemini && !customTheme) {
       let filtered = storedQuestions;
-      if (category && category !== 'ランダム') {
-        filtered = storedQuestions.filter(q => q.category.includes(category) || category.includes(q.category));
+      if (category === 'ENGAWA') {
+        // ENGAWA選択時のみ専用ストックから出題
+        filtered = storedQuestions.filter(q => q.category === 'ENGAWA');
+      } else {
+        // デフォルト時（ランダムなど）はENGAWAカテゴリを絶対に出題しない
+        filtered = storedQuestions.filter(q => q.category !== 'ENGAWA');
+        if (category && category !== 'ランダム') {
+          const matched = filtered.filter(q => q.category.includes(category) || category.includes(q.category));
+          if (matched.length > 0) filtered = matched;
+        }
       }
+
       // 未使用のものを優先
       const available = filtered.filter(q => !usedIds.includes(q.id));
-      const pool = available.length > 0 ? available : (filtered.length > 0 ? filtered : storedQuestions);
+      const pool = available.length > 0 ? available : filtered;
 
       if (pool.length > 0) {
         const picked = pool[Math.floor(Math.random() * pool.length)];

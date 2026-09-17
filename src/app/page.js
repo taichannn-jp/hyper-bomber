@@ -6,7 +6,7 @@ import { soundFX } from '@/lib/audio';
 import { SpeechController, checkAnswer } from '@/lib/speech';
 import { Volume2, VolumeX, Mic, MicOff, RotateCcw, Users, Music, Sparkles, CheckCircle2 } from 'lucide-react';
 
-const GENRES = ['ランダム', 'アニメ・映画', '地理', 'スポーツ', '歴史・政治', '言葉・漢字', 'ゲーム・エンタメ', '日常・グルメ'];
+const GENRES = ['ランダム', 'アニメ・映画', '地理', 'スポーツ', '歴史・政治', '言葉・漢字', 'ゲーム・エンタメ', '日常・グルメ', 'ENGAWA'];
 
 // シリンダーの色設定（1〜5枠）
 const CYLINDER_COLORS = [
@@ -621,29 +621,39 @@ export default function HyperBomberPage() {
               </div>
             )}
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '6px' }}>
-              {GENRES.map((g) => (
-                <button
-                  key={g}
-                  style={{
-                    padding: '8px',
-                    borderRadius: '6px',
-                    border: category === g ? '2px solid #E57730' : '1px solid #014070',
-                    background: category === g ? 'linear-gradient(135deg, #E57730 0%, #014070 100%)' : '#071326',
-                    color: '#fff',
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                    fontSize: '0.85rem',
-                    boxShadow: category === g ? '0 0 10px rgba(229, 119, 48, 0.6)' : 'none'
-                  }}
-                  onClick={() => {
-                    setCategory(g);
-                    setCustomTheme('');
-                  }}
-                >
-                  {g}
-                </button>
-              ))}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px' }}>
+              {GENRES.map((g) => {
+                const isEngawa = g === 'ENGAWA';
+                const isSelected = category === g;
+                return (
+                  <button
+                    key={g}
+                    style={{
+                      padding: '8px',
+                      borderRadius: '6px',
+                      border: isSelected
+                        ? '2px solid #E57730'
+                        : (isEngawa ? '1px solid #4EC5D7' : '1px solid #014070'),
+                      background: isSelected
+                        ? 'linear-gradient(135deg, #E57730 0%, #014070 100%)'
+                        : (isEngawa ? 'linear-gradient(135deg, #092540 0%, #071326 100%)' : '#071326'),
+                      color: isEngawa && !isSelected ? '#4EC5D7' : '#fff',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      fontSize: '0.85rem',
+                      boxShadow: isSelected
+                        ? '0 0 10px rgba(229, 119, 48, 0.6)'
+                        : (isEngawa ? '0 0 6px rgba(78, 197, 215, 0.3)' : 'none')
+                    }}
+                    onClick={() => {
+                      setCategory(g);
+                      setCustomTheme('');
+                    }}
+                  >
+                    {isEngawa ? '🌟 ENGAWA' : g}
+                  </button>
+                );
+              })}
             </div>
           </div>
 

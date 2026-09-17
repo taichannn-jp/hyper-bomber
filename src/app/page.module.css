@@ -108,23 +108,23 @@
 }
 
 .telopBadge {
-  background: linear-gradient(90deg, #ffcc00, #ff8800);
-  color: #000;
+  background: linear-gradient(90deg, #E57730, #4EC5D7);
+  color: #ffffff;
   font-weight: 900;
   font-size: 0.95rem;
   padding: 3px 12px;
   border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 2px 8px rgba(78, 197, 215, 0.5);
   display: inline-block;
   width: fit-content;
-  border: 1px solid #ffffff;
+  border: 1px solid #4EC5D7;
 }
 
 .telopSub {
   font-size: 1.15rem;
   font-weight: 900;
-  color: #ff3344;
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.9), 1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+  color: #4EC5D7;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.9), 1px 1px 0 #014070, -1px -1px 0 #014070;
 }
 
 .telopRight {
@@ -134,14 +134,14 @@
 }
 
 .targetBadge {
-  background: #ff0033;
+  background: linear-gradient(135deg, #E57730 0%, #014070 100%);
   color: #fff;
   font-weight: 900;
   font-size: 1.1rem;
   padding: 6px 16px;
   border-radius: 6px;
-  border: 2px solid #ffd700;
-  box-shadow: 0 0 15px rgba(255, 0, 51, 0.6);
+  border: 2px solid #4EC5D7;
+  box-shadow: 0 0 15px rgba(78, 197, 215, 0.6);
   letter-spacing: 1px;
 }
 
@@ -208,14 +208,14 @@
   pointer-events: none;
 }
 
-/* 問題表示ボックス（ネプリーグ風） */
+/* 問題表示ボックス（枠カラー適用） */
 .questionBoard {
   width: 95%;
   max-width: 1000px;
-  background: linear-gradient(180deg, #1b1e2e 0%, #0d101d 100%);
-  border: 3px solid #ffcc00;
+  background: linear-gradient(180deg, #014070 0%, #071326 60%, #140700 100%);
+  border: 3px solid #4EC5D7;
   border-radius: 12px;
-  box-shadow: 0 0 25px rgba(255, 204, 0, 0.4), inset 0 0 15px rgba(255, 204, 0, 0.2);
+  box-shadow: 0 0 25px rgba(78, 197, 215, 0.5), inset 0 0 15px rgba(229, 119, 48, 0.25);
   padding: 16px 24px;
   text-align: center;
   position: relative;
@@ -303,12 +303,12 @@
 .cylinderHead {
   width: 80%;
   height: 38px;
-  background: linear-gradient(180deg, #666 0%, #333 40%, #1a1a1a 100%);
+  background: linear-gradient(180deg, #014070 0%, #08223d 50%, #140700 100%);
   border-radius: 8px 8px 0 0;
-  border: 2px solid #888;
+  border: 2px solid #4EC5D7;
   border-bottom: none;
   position: relative;
-  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0 2px 4px rgba(78, 197, 215, 0.4);
 }
 
 .cylinderHeadBolt {
@@ -318,21 +318,21 @@
   transform: translateX(-50%);
   width: 16px;
   height: 8px;
-  background: #ffaa00;
+  background: #E57730;
   border-radius: 2px;
-  box-shadow: 0 0 6px #ffaa00;
+  box-shadow: 0 0 8px #E57730;
 }
 
 /* シリンダー本体ガラスチューブ */
 .glassTube {
   width: 80%;
   height: 240px;
-  background: rgba(15, 20, 35, 0.6);
-  border-left: 4px solid rgba(255, 255, 255, 0.4);
-  border-right: 4px solid rgba(255, 255, 255, 0.4);
+  background: rgba(1, 64, 112, 0.35);
+  border-left: 4px solid rgba(78, 197, 215, 0.6);
+  border-right: 4px solid rgba(78, 197, 215, 0.6);
   position: relative;
   overflow: hidden;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 0 15px rgba(1, 64, 112, 0.5);
   display: flex;
   align-items: flex-end;
 }
@@ -401,43 +401,61 @@
   background: linear-gradient(180deg, #ff4477 0%, #cc0033 60%, #440011 100%);
 }
 
-/* 下部の解答席デスク（ネプリーグ公式の黄色スラット風デスク） */
+/* 下部の解答席デスク（枠カラー適用） */
 .deskPodium {
   width: 100%;
-  background: linear-gradient(180deg, #e69500 0%, #cc7700 40%, #884400 100%);
-  border: 2px solid #ffe066;
-  border-radius: 6px;
+  background: linear-gradient(180deg, #014070 0%, #091a33 50%, #140700 100%);
+  border: 2px solid #4EC5D7;
+  border-radius: 8px;
   padding: 8px 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.8), inset 0 2px 4px rgba(78, 197, 215, 0.4);
   position: relative;
   margin-top: -4px;
   z-index: 10;
+  transition: all 0.3s ease;
 }
 
-/* 解答席の黄色の横スラット（ルーバー）模様 */
+.deskPodiumActive {
+  border-color: #E57730 !important;
+  box-shadow: 0 0 20px rgba(229, 119, 48, 0.8), inset 0 0 10px rgba(78, 197, 215, 0.4) !important;
+}
+
+.deskSlotBadge {
+  background: #E57730;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid #4EC5D7;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+}
+
+/* 解答席の横スラット（ルーバー）模様 */
 .deskSlats {
   width: 90%;
-  height: 18px;
+  height: 16px;
   background: repeating-linear-gradient(
     180deg,
-    #ffd24d 0px,
-    #ffd24d 3px,
-    #804d00 3px,
-    #804d00 6px
+    #4EC5D7 0px,
+    #4EC5D7 2px,
+    #014070 2px,
+    #014070 5px
   );
   border-radius: 3px;
   margin-bottom: 6px;
-  border: 1px solid #ffe680;
+  border: 1px solid rgba(78, 197, 215, 0.5);
 }
 
 .deskMemberName {
   font-size: 1.05rem;
   font-weight: 900;
   color: #ffffff;
-  text-shadow: 0 2px 4px #000;
+  text-shadow: 0 2px 4px #000, 0 0 8px rgba(78, 197, 215, 0.5);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -447,7 +465,7 @@
 .deskScoreTag {
   font-size: 0.75rem;
   font-weight: 800;
-  color: #ffe680;
+  color: #E57730;
   margin-top: 2px;
 }
 
@@ -517,7 +535,7 @@
   100% { transform: scale(1.06); }
 }
 
-/* 10個の正解ランプ・インジケーター（画面上部） */
+/* 正解ランプ・インジケーター（画面上部） */
 .clearLampsRow {
   display: flex;
   gap: 8px;
@@ -529,22 +547,22 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 2px solid #444;
-  background: #111;
+  border: 2px solid #014070;
+  background: #071326;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 900;
-  color: #666;
+  color: #4EC5D7;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .clearLampOn {
-  background: radial-gradient(circle, #00ff66 20%, #00882b 80%);
-  border-color: #ffffff;
+  background: radial-gradient(circle, #ffe066 10%, #E57730 80%);
+  border-color: #4EC5D7;
   color: #ffffff;
-  box-shadow: 0 0 12px #00ff66;
+  box-shadow: 0 0 14px #E57730, 0 0 20px rgba(78, 197, 215, 0.7);
   transform: scale(1.15);
 }
 
@@ -552,14 +570,15 @@
 .liveControlPanel {
   width: 95%;
   max-width: 900px;
-  background: rgba(15, 18, 30, 0.85);
-  border: 1px solid #3d4466;
+  background: rgba(1, 64, 112, 0.75);
+  border: 2px solid #4EC5D7;
+  box-shadow: 0 0 20px rgba(78, 197, 215, 0.35);
   border-radius: 12px;
   padding: 12px 18px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
   z-index: 20;
 }
 
@@ -567,17 +586,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #090b14;
-  border: 1px solid #232840;
+  background: #071326;
+  border: 1px solid #E57730;
   border-radius: 8px;
   padding: 8px 14px;
 }
 
 .liveTranscriptText {
-  color: #00ffcc;
+  color: #4EC5D7;
   font-size: 1.15rem;
   font-weight: 800;
-  text-shadow: 0 0 8px rgba(0, 255, 204, 0.4);
+  text-shadow: 0 0 8px rgba(78, 197, 215, 0.6);
 }
 
 .passButton {
@@ -625,10 +644,11 @@
 
 /* メンバー登録モーダル / 設定画面 */
 .memberSetupBox {
-  background: #151829;
-  border: 2px solid #3a4266;
+  background: linear-gradient(180deg, #014070 0%, #071326 60%, #140700 100%);
+  border: 2px solid #4EC5D7;
+  box-shadow: 0 0 25px rgba(78, 197, 215, 0.4);
   border-radius: 12px;
-  padding: 16px;
+  padding: 20px;
   margin: 16px 0;
 }
 
@@ -646,12 +666,19 @@
 }
 
 .memberSlotInput {
-  background: #0d0f1c;
-  border: 1px solid #333b5c;
+  background: #071326;
+  border: 1px solid #4EC5D7;
   border-radius: 6px;
   padding: 8px 10px;
   color: #fff;
   font-size: 0.9rem;
   text-align: center;
   font-weight: bold;
+  transition: all 0.2s;
+}
+
+.memberSlotInput:focus {
+  outline: none;
+  border-color: #E57730;
+  box-shadow: 0 0 8px #E57730;
 }

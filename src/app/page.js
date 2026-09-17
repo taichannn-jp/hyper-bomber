@@ -628,12 +628,13 @@ export default function HyperBomberPage() {
                   style={{
                     padding: '8px',
                     borderRadius: '6px',
-                    border: category === g ? '2px solid #ffaa00' : '1px solid #3d4466',
-                    background: category === g ? '#ff5500' : '#141829',
+                    border: category === g ? '2px solid #E57730' : '1px solid #014070',
+                    background: category === g ? 'linear-gradient(135deg, #E57730 0%, #014070 100%)' : '#071326',
                     color: '#fff',
                     fontWeight: 700,
                     cursor: 'pointer',
-                    fontSize: '0.85rem'
+                    fontSize: '0.85rem',
+                    boxShadow: category === g ? '0 0 10px rgba(229, 119, 48, 0.6)' : 'none'
                   }}
                   onClick={() => {
                     setCategory(g);
@@ -648,12 +649,12 @@ export default function HyperBomberPage() {
 
           {/* カスタムテーマ */}
           <div style={{ marginBottom: '14px' }}>
-            <label style={{ display: 'block', color: '#aaaacc', fontWeight: 'bold', marginBottom: '6px' }}>
+            <label style={{ display: 'block', color: '#4EC5D7', fontWeight: 'bold', marginBottom: '6px' }}>
               またはカスタムテーマ（自由入力でGeminiが即時作成）
             </label>
             <input
               type="text"
-              style={{ width: '100%', padding: '8px 12px', background: '#0a0d1a', border: '1px solid #333d5e', borderRadius: '6px', color: '#fff', fontSize: '0.9rem' }}
+              style={{ width: '100%', padding: '8px 12px', background: '#071326', border: '1px solid #4EC5D7', borderRadius: '6px', color: '#fff', fontSize: '0.9rem' }}
               placeholder="例: ポケモンの名前、ジブリ映画、歴代総理大臣、山手線駅名など（空欄ならストックから即時出題）"
               value={customTheme}
               onChange={(e) => setCustomTheme(e.target.value)}
@@ -662,11 +663,11 @@ export default function HyperBomberPage() {
 
           {/* 制限時間 */}
           <div style={{ marginBottom: '18px' }}>
-            <label style={{ display: 'block', color: '#aaaacc', fontWeight: 'bold', marginBottom: '6px' }}>
+            <label style={{ display: 'block', color: '#4EC5D7', fontWeight: 'bold', marginBottom: '6px' }}>
               制限時間（ネプリーグ公式標準: 60秒）
             </label>
             <select
-              style={{ width: '100%', padding: '8px 10px', background: '#0a0d1a', border: '1px solid #333d5e', borderRadius: '6px', color: '#fff', fontSize: '0.9rem' }}
+              style={{ width: '100%', padding: '8px 10px', background: '#071326', border: '1px solid #4EC5D7', borderRadius: '6px', color: '#fff', fontSize: '0.9rem' }}
               value={timeLimit}
               onChange={(e) => setTimeLimit(Number(e.target.value))}
             >
@@ -680,14 +681,14 @@ export default function HyperBomberPage() {
             style={{
               width: '100%',
               padding: '16px',
-              background: 'linear-gradient(90deg, #ff0055 0%, #ff5500 50%, #ffaa00 100%)',
-              border: 'none',
+              background: 'linear-gradient(90deg, #E57730 0%, #ff8833 45%, #4EC5D7 100%)',
+              border: '2px solid #4EC5D7',
               borderRadius: '10px',
               color: '#fff',
               fontSize: '1.4rem',
               fontWeight: 900,
               cursor: 'pointer',
-              boxShadow: '0 8px 25px rgba(255, 85, 0, 0.5)'
+              boxShadow: '0 8px 25px rgba(229, 119, 48, 0.5)'
             }}
             onClick={startGame}
           >
@@ -772,8 +773,24 @@ export default function HyperBomberPage() {
                     </div>
                   </div>
 
-                  {/* 解答席デスク（ネプリーグ公式黄色スラットデスク） */}
-                  <div className={styles.deskPodium}>
+                  {/* 解答席デスク（枠カラー #E57730, #4EC5D7, #014070 適用） */}
+                  <div
+                    className={`${styles.deskPodium} ${isActive ? styles.deskPodiumActive : ''}`}
+                    style={{
+                      borderColor: isActive ? '#E57730' : (idx % 2 === 0 ? '#4EC5D7' : '#E57730'),
+                    }}
+                  >
+                    <div
+                      className={styles.deskSlotBadge}
+                      style={{
+                        background: idx % 2 === 0
+                          ? 'linear-gradient(90deg, #4EC5D7, #014070)'
+                          : 'linear-gradient(90deg, #E57730, #140700)',
+                        borderColor: idx % 2 === 0 ? '#4EC5D7' : '#E57730',
+                      }}
+                    >
+                      {idx + 1}枠
+                    </div>
                     <div className={styles.deskSlats} />
                     <div className={styles.deskMemberName}>{memberName}</div>
                     <div className={styles.deskScoreTag}>正解: {score}問</div>

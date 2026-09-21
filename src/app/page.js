@@ -6,7 +6,7 @@ import { soundFX } from '@/lib/audio';
 import { SpeechController, checkAnswer } from '@/lib/speech';
 import { Volume2, VolumeX, Mic, MicOff, RotateCcw, Users, Music, Sparkles, CheckCircle2 } from 'lucide-react';
 
-const GENRES = ['ランダム', 'アニメ・映画', '地理', 'スポーツ', '歴史・政治', '言葉・漢字', 'ゲーム・エンタメ', '日常・グルメ', 'ENGAWA'];
+const GENRES = ['ランダム', 'アニメ・映画', '地理', 'スポーツ', '歴史・政治', '言葉・漢字', 'ゲーム・エンタメ', '日常・グルメ', 'ENGAWA', '画像・パネル'];
 
 // シリンダーの色設定（1〜5枠）
 const CYLINDER_COLORS = [
@@ -735,6 +735,53 @@ export default function HyperBomberPage() {
             </div>
 
             <h2 className={styles.questionTitle}>{quiz?.question}</h2>
+
+            {/* 画像・パネル問題の場合の画像＆パネル回答進捗表示 */}
+            {quiz?.image && (
+              <div style={{ margin: '14px auto 6px', maxWidth: '680px', width: '100%', position: 'relative' }}>
+                <img
+                  src={quiz.image}
+                  alt="クイズ問題画像"
+                  style={{
+                    width: '100%',
+                    maxHeight: '340px',
+                    objectFit: 'contain',
+                    borderRadius: '8px',
+                    border: '3px solid #4EC5D7',
+                    boxShadow: '0 6px 20px rgba(0,0,0,0.8), 0 0 15px rgba(78, 197, 215, 0.4)',
+                    background: '#000'
+                  }}
+                />
+
+                {/* 各パネル（A〜I）のリアルタイム解答状況バッジ */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center', marginTop: '10px' }}>
+                  {quiz.answers?.map((ans) => {
+                    const isDone = answeredItems.some(item => item.id === ans.id || (ans.panel && item.text?.startsWith(ans.panel + ':')));
+                    return (
+                      <div
+                        key={ans.id}
+                        style={{
+                          padding: '4px 12px',
+                          borderRadius: '6px',
+                          fontSize: '0.9rem',
+                          fontWeight: 900,
+                          background: isDone
+                            ? 'linear-gradient(90deg, #E57730 0%, #ff4400 100%)'
+                            : 'linear-gradient(135deg, #014070 0%, #071326 100%)',
+                          border: isDone ? '2px solid #ffd700' : '1px solid #4EC5D7',
+                          color: isDone ? '#ffffff' : '#4EC5D7',
+                          boxShadow: isDone ? '0 0 12px #E57730' : 'none',
+                          transform: isDone ? 'scale(1.05)' : 'scale(1)',
+                          transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                        }}
+                      >
+                        {ans.panel ? `${ans.panel}: ` : ''}{isDone ? `済 ${ans.text.replace(/^[A-Z]:\s*/, '')}` : (ans.panel ? '未回答' : ans.text)}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* 中央タイマー表示 */}
